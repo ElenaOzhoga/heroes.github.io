@@ -39,14 +39,25 @@ var data = {
 };
 
 var content = document.querySelector('#content');
+
 function createTree (htmlContainer, jsonData) {
-	if (jsonData !== undefined) {
-		htmlContainer.innerHTML += '<ul class="item-list">';
+	var domContent = '';
+	if (jsonData) {
+		domContent += '<ul class="item-list">';
 		for (var key in jsonData) {
-			htmlContainer.innerHTML += "<li>" + key + "</li>";
-			console.log(jsonData[key]);
+			domContent += "<li>" + key + (jsonData[key] ? "<ul>": "");
+			for (var key1 in jsonData[key]) {
+				domContent += "<li>" + key1 + (jsonData[key][key1] ? "<ul>": "");
+				for (var key2 in jsonData[key][key1]) {
+					domContent +=  "<li>" + key2 + "</li>";
+				}
+				domContent += (jsonData[key][key1] ? "</ul>": "") + "</li>";
+			}
+			domContent += (jsonData[key] ? "</ul>": "") + "</li>";
+
 		}
-		htmlContainer.innerHTML += '</ul>';
+		domContent += '</ul>';
+		htmlContainer.innerHTML += domContent;
 	}
 
 }
