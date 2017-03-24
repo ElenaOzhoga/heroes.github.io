@@ -38,11 +38,17 @@ var data = {
 	}
 };
 
+//todo @vm: по поводу браузерных префиксов (моз вебкит и тд) в цссе - большая их часть уже не нужна
+//todo @vm: посмотреть можно тут http://caniuse.com/#search=box-shadow
+
 var content = document.querySelector('#content');
 
 function createTree (htmlContainer, jsonData) {
 	var domContent = '';
 	if (jsonData) {
+		//todo @vm: мне кажется будет лучше создавать элементы через криейтэлемент, вместо склейки из кусков текста
+		//todo @vm: в случае склейки вероятность ошибки выше, т.к. текст всегда валиден, и хз как он отрендерится если ты забудешь закрыть какой нибудь тег
+
 		domContent += '<ul class="item-list">';
 		for (var key in jsonData) {
 			domContent += "<li>" + key + (jsonData[key] ? "<ul>": "");
@@ -63,3 +69,5 @@ function createTree (htmlContainer, jsonData) {
 }
 
 createTree(content, data);
+
+//todo @vm: в целом ок, но думаю такие мелкие таски (50-100 строк) лучше на кодпен выкладывать
